@@ -1,0 +1,23 @@
+#!/bin/bash
+#Ask user if he is in the directory to operate program
+while true; do
+  read -p "Are you in the directory with pictures to separate (y/n)?: " useCurrentDirectory
+  if [ $useCurrentDirectory == "y" ] || [ $useCurrentDirectory == "n" ]; then
+    break
+  fi
+done
+
+#Build directory path
+if [ $useCurrentDirectory == "n" ]; then
+  while true; do
+    read -p "Enter the path to the directory to operate program: " directoryLocation
+    #if prompted directory location is valid, continue
+    if [ -d $directoryLocation ]; then 
+      break
+    fi
+    echo "invalid path"
+  done
+else
+  directoryLocation="$(PWD)"
+fi
+echo $directoryLocation
