@@ -1,8 +1,5 @@
 #!/bin/bash
 
-function extractPixelSizeFromString {
-  
-}
 #Ask user if he is in the directory to operate program
 while true; do
   read -p "Are you in the directory with pictures to separate (y/n)?: " useCurrentDirectory
@@ -41,23 +38,13 @@ done
 
 #if criteria = size
 if [ $criteria == "s" ]; then
-  #ask if use default size file 
-  while true; do
-    read -p "use default picture sizes in defaultSize.txt? (y/n)" useDefaultSizeFile
-    if [ $useDefaultSizeFile == "y" ] || [ $useDefaultSizeFile == "n" ]; then
-      break
-    fi
-    echo "invalid input"
-  done
-
-  #if use default size
-  if [ $useDefaultSizeFile == "y" ]; then 
-    chmod +x rr.sh
-    sizes=$(./rr.sh ./defaultSize.txt)
-    echo $sizes
-  fi
+  #if use default size 
+    chmod +x ./fileReader.sh
+    sizes=$(./fileReader.sh ./sizes.txt)
 fi
 
+
+#TODO: regex $sizes n put in array
 #separate pictures
 
 
