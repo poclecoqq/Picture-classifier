@@ -36,17 +36,23 @@ while true; do
   echo "invalid input"
 done
 
-#if criteria = size
-if [ $criteria == "s" ]; then
-  #if use default size 
-    chmod +x ./fileReader.sh
-    sizes=$(./fileReader.sh ./sizes.txt)
-fi
+case "$criteria" in
+  e)
+    #TODO
+  ;;
+
+  #if criteria = size
+  s)
+    unparsedsizes=$(./fileReader.sh ./sizes.txt)
+    chmod +x ./pictureSizeParser.py
+    parseSizes=$(python ./pictureSizeParser.py $unparsedsizes)
+    echo $parseSizes
+    ;;
+esac
 
 
 #TODO: regex $sizes n put in array
 #separate pictures
-
 
 
 
