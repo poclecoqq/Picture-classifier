@@ -1,57 +1,30 @@
 #!/bin/bash
 
-#Ask user if he is in the directory to operate program
-while true; do
-  read -p "Are you in the directory with pictures to separate (y/n)?: " useCurrentDirectory
-  if [ $useCurrentDirectory == "y" ] || [ $useCurrentDirectory == "n" ]; then
-    break
-  fi
-  echo "invalid input"
+
+scriptRelativePath=`dirname $0`
+echo $scriptRelativePath
+
+files=`find . -maxdepth 1 -name "*.jpg" -o -name "*.png" -o -name "*.bmp" -o -name "*.gif"`
+
+#for each picture in repository
+for file in $files; do #TODO: add .png and other files extensions
+  file $file
 done
 
-#Build directory path
-if [ $useCurrentDirectory == "n" ]; then
-  while true; do
-    read -p "Enter the path to the directory to operate program: " directoryLocation
-    #if prompted directory location is valid, continue
-    if [ -d $directoryLocation ]; then 
-      break
-    fi
-    echo "invalid path"
-  done
-else
-  directoryLocation="$(PWD)"
-fi
 
+#############################################################
+#read from file and parse to get picture sizes
+unparsedsizes=$("$scriptRelativePath"/fileReader.sh "$scriptRelativePath"/sizes.txt)
+chmod +x ""$scriptRelativePath"/pictureSizeParser.py"
+parsedSizes=$(python "$scriptRelativePath"/pictureSizeParser.py $unparsedsizes)
+echo $parsedSizes
 
-#criteria to separate pictures
-while true; do 
-  read -p "`echo -e 'Separate pictures depending on which criteria? \n
-  e -> EXIF (picture metadata - vertical or horizontal) \n
-  s -> size \n
-  '`" criteria
-  if [ $criteria == "e" ] || [ $criteria == "s" ]; then
-    break
-  fi
-  echo "invalid input"
+#build sizes array
+IFS=',' read -ra sizes <<< "$parsedSizes"
+for i in "${sizes[@]}"; do
+    echo $i
 done
-
-case "$criteria" in
-  e)
-    #TODO
-  ;;
-
-  #if criteria = size
-  s)
-    unparsedsizes=$(./fileReader.sh ./sizes.txt)
-    chmod +x ./pictureSizeParser.py
-    parseSizes=$(python ./pictureSizeParser.py $unparsedsizes)
-    echo $parseSizes
-    ;;
-esac
-
-
-#TODO: regex $sizes n put in array
+#TODO:
 #separate pictures
 
 
