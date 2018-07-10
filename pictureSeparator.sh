@@ -13,10 +13,5 @@ for file in $files; do
   cp $file "PS_"$size""
 done
 
-#TODO:
-#separate pictures
-
-
-
 echo "done"
 
