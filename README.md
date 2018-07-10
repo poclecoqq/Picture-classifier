@@ -1,5 +1,7 @@
 # pictureSeparator
-Bash script to separate pictures taken horizontally or vertically
+Bash script to separate pictures depending on their size
 
-What you need to run this bash script
+What you need to run this bash script:
+bash interpreter
+python interpreter
 
