@@ -1,4 +1,4 @@
-# pictureSeparator
+# Pictures-classifier
 Bash script to separate pictures in folders depending on their size
 
 What you need to run this bash script:
